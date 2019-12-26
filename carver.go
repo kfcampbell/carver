@@ -22,9 +22,7 @@ var (
 	dpi        = 72
 )
 
-type Game struct {
-	boardImage *ebiten.Image
-}
+type Game struct{}
 
 // repeatingKeyPressed return true when key is pressed considering the repeat state.
 func repeatingKeyPressed(key ebiten.Key) bool {
@@ -93,14 +91,9 @@ func (g *Game) Update(screen *ebiten.Image) error {
 		t += "_"
 	}
 
-	if g.boardImage == nil {
-		w, h := 1280, 960
-		g.boardImage, _ = ebiten.NewImage(w, h, ebiten.FilterDefault)
-	}
 	screen.Fill(color.Black)
 
 	slices := strings.Split(t, "\n")
-
 	for i := 0; i < len(slices); i++ {
 		text.Draw(screen, slices[i], normalFont, 15, 15+(20*i), color.White)
 	}
