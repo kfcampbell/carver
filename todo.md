@@ -1,7 +1,7 @@
 # todo
 
-- resizable window
-    - with dynamically-laid-out-text
+- adjustable text size
 - word wrap
 - save file
 - load file
+- stay in middle of page (typewriter mode)

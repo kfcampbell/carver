@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	text    = "Type on the keyboard:\n"
+	text    = "Begin your masterpiece, or maybe just a shopping list:\n"
 	counter = 0
 )
 
@@ -35,7 +35,12 @@ func repeatingKeyPressed(key ebiten.Key) bool {
 // Layout takes the outside size (e.g., the window size) and returns the (logical) screen size.
 // If you don't have to adjust the screen size with the outside size, just return a fixed size.
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 320, 320
+	// outsideWidth and outsideHeight are set on line 85 by default
+	// they change when the user resizes the window
+	var newWidth int = int(float64(outsideWidth) * 0.6)
+	var newHeight int = int(float64(outsideHeight) * 0.6)
+
+	return newHeight, newWidth
 }
 
 func (g *Game) Update(screen *ebiten.Image) error {
@@ -81,13 +86,12 @@ func (g *Game) Update(screen *ebiten.Image) error {
 }
 
 func main() {
-	ebiten.SetWindowSize(640, 480)
+	ebiten.SetWindowSize(1280, 960)
 	ebiten.SetWindowResizable(true)
-	ebiten.SetWindowTitle("Carver")
+	ebiten.SetWindowTitle("carver")
 
 	game := &Game{}
 
-	// Call ebiten.RunGame to start your game loop.
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
 	}
