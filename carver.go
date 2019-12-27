@@ -17,6 +17,8 @@ import (
 var (
 	userText   = "Begin your masterpiece, or maybe just a shopping list:\n"
 	counter    = 0
+	userRow    = 0             // to be used to add the cursor at the appropriate location
+	userCol    = len(userText) // track state for cursor location here
 	tt         *truetype.Font
 	normalFont font.Face
 	dpi        = 72
@@ -59,12 +61,6 @@ func (g *Game) Update(screen *ebiten.Image) error {
 	// every frame.
 	userText += string(ebiten.InputChars())
 
-	// Adjust the string to be at most 10 lines.
-	ss := strings.Split(userText, "\n")
-	if len(ss) > 10 {
-		userText = strings.Join(ss[len(ss)-10:], "\n")
-	}
-
 	// If the enter key is pressed, add a line break.
 	if repeatingKeyPressed(ebiten.KeyEnter) || repeatingKeyPressed(ebiten.KeyKPEnter) {
 		userText += "\n"
@@ -76,6 +72,8 @@ func (g *Game) Update(screen *ebiten.Image) error {
 			userText = userText[:len(userText)-1]
 		}
 	}
+
+	// need to place the cursor at the right place, not just at the end of userText
 
 	counter++
 
